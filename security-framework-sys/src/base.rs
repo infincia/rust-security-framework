@@ -1,5 +1,6 @@
 use core_foundation_sys::base::OSStatus;
 use core_foundation_sys::string::CFStringRef;
+use MacTypes_sys::OSType;
 use libc::c_void;
 
 #[repr(C)]
@@ -9,6 +10,23 @@ pub type SecKeychainRef = *mut OpaqueSecKeychainRef;
 #[repr(C)]
 pub struct OpaqueSecKeychainItemRef(c_void);
 pub type SecKeychainItemRef = *mut OpaqueSecKeychainItemRef;
+
+pub type SecKeychainAttrType = OSType;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SecKeychainAttribute {
+    pub tag: SecKeychainAttrType,
+    pub length: u32,
+    pub data: *mut c_void,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct SecKeychainAttributeList {
+    pub count: u32,
+    pub attr: *mut SecKeychainAttribute,
+}
 
 #[repr(C)]
 pub struct OpaqueSecCertificateRef(c_void);
